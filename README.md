@@ -1,59 +1,80 @@
-# Challenge1Front
+# Aplicación de Gestión de Tareas
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.8.
+Una aplicación moderna de gestión de tareas construida con Angular, que incluye autenticación de usuarios y seguimiento de tareas en tiempo real.
 
-## Development server
+## Características
 
-To start a local development server, run:
+- 🔐 Autenticación de usuarios (inicio de sesión/registro)
+- ✨ Creación y gestión de tareas
+- 🎯 Actualizaciones de tareas en tiempo real
+- 🎨 Interfaz moderna con Tailwind CSS
+- 🔄 Diseño responsivo
+
+## Requisitos Previos
+
+Antes de ejecutar esta aplicación, asegúrate de tener:
+
+- Node.js (v14 o superior)
+- npm (v6 o superior)
+- Angular CLI (v16 o superior)
+
+## Instalación
+
+1. Clona el repositorio:
+```
+
+## Servidor de Desarrollo
+
+Para iniciar un servidor de desarrollo local, ejecuta:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Una vez que el servidor esté en funcionamiento, abre tu navegador y navega a `http://localhost:4200/`. La aplicación se recargará automáticamente cuando modifiques cualquiera de los archivos fuente.
 
-## Code scaffolding
+## Generación de Código
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Angular CLI incluye potentes herramientas de generación de código. Para generar un nuevo componente, ejecuta:
 
 ```bash
-ng generate component component-name
+ng generate component nombre-componente
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Para una lista completa de los esquemas disponibles (como `components`, `directives`, o `pipes`), ejecuta:
 
 ```bash
 ng generate --help
 ```
 
-## Building
+## Compilación
 
-To build the project run:
+Para compilar el proyecto ejecuta:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Esto compilará tu proyecto y almacenará los archivos de compilación en el directorio `dist/`. Por defecto, la compilación de producción optimiza tu aplicación para rendimiento y velocidad.
 
-## Running unit tests
+## Ejecutar Pruebas Unitarias
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Para ejecutar pruebas unitarias con el corredor de pruebas [Karma](https://karma-runner.github.io), usa el siguiente comando:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+## Ejecutar Pruebas End-to-End
 
-For end-to-end (e2e) testing, run:
+Para pruebas end-to-end (e2e), ejecuta:
 
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Angular CLI no viene con un framework de pruebas end-to-end por defecto. Puedes elegir uno que se adapte a tus necesidades.
 
-## Additional Resources
+## Recursos Adicionales
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Para más información sobre el uso de Angular CLI, incluyendo referencias detalladas de comandos, visita la página de [Descripción general y referencia de comandos de Angular CLI](https://angular.dev/tools/cli).
