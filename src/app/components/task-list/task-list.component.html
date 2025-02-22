@@ -1,0 +1,39 @@
+<div class="bg-white p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800 flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+      </svg>
+      Lista de Tareas
+    </h2>
+    
+    @if(tasks.length === 0){
+    <div class="text-center py-8">
+            <p class="text-gray-500 mb-4">🎉 ¡No hay tareas pendientes!</p>
+        
+      <img 
+        src="assets/images/mood-empty.svg" 
+        alt="Lista vacía" 
+        class="w-16 mx-auto"
+        onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI5MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTVFN0VCIiBzdHJva2Utd2lkdGg9IjQiLz48Y2lyY2xlIGN4PSI3MCIgY3k9IjgwIiByPSI4IiBmaWxsPSIjOUNBM0FGIi8+PGNpcmNsZSBjeD0iMTMwIiBjeT0iODAiIHI9IjgiIGZpbGw9IiM5Q0EzQUYiLz48cGF0aCBkPSJNNjAgMTIwIFExMDAgMTQwIDE0MCAxMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzlDQTNBRiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4='"
+      >
+    </div>
+}
+  
+    @for ( task of tasks; track $index) {
+    <div
+        class="border-b border-gray-100 py-4 flex justify-between items-center group hover:bg-gray-50 transition-all duration-200 rounded-lg px-3">
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-lg text-gray-800 truncate">{{ task.title }}</h3>
+          <p class="text-gray-600 text-sm mt-1 whitespace-pre-wrap">{{ task.description }}</p>
+        </div>
+        <button (click)="confirmDelete(task.id)"
+              class="text-red-400 hover:text-red-600 p-2 rounded-full hover:bg-red-50 transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+      </button>
+      
+      
+    </div>
+}
+  </div>
