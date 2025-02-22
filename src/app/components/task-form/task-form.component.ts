@@ -37,8 +37,8 @@ export class TaskFormComponent {
               background: '#fff',
               timer: 2000
             });
+            this.taskForm.reset(); 
             this.taskAdded.emit();
-            this.taskForm.reset();
           },
           error: (err) => {
             Swal.fire({

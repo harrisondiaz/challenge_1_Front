@@ -89,7 +89,7 @@ export class RegisterComponent {
   }
 
   private handleError(err: any): void {
-    console.log("Error", err);  
+      
     const errorMessage = err.error?.message || 'Error en el registro';
     Swal.fire({
       title: 'Error',

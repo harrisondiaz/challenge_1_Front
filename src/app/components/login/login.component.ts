@@ -41,7 +41,6 @@ export class LoginComponent {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    console.log('Form values:', this.loginForm.value); // 🐛 Debug
     
     if (this.loginForm.invalid) {
       this.showFormErrors();

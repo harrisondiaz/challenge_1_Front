@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { TaskListComponent } from '../task-list/task-list.component';
+import { Task } from '../../models/task';
 
 interface User {
   id: number;
@@ -19,26 +20,18 @@ interface User {
   standalone: true
 })
 export class TasksComponent implements OnInit {
-  tasks: any[] = [];
-  user: User = {
-    id: 0,
-    name: '',
-    email: ''
-  };
+  tasks: Task[] = [];
+  user: User | null = null;
 
   constructor(
     private taskService: TaskService,
     private authService: AuthService, 
     private router: Router 
-  ) {
-    this.loadTasks();
-  }
+  ) {}
 
-  ngOnInit() {
-    const userStr = localStorage.getItem('user');
-    if (userStr) {
-      this.user = JSON.parse(userStr);
-    }
+  ngOnInit(): void {
+    this.loadTasks();
+    this.loadUser();
   }
 
   logout() {
@@ -46,14 +39,26 @@ export class TasksComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  loadTasks() {
+  loadTasks(): void {
     this.taskService.getTasks().subscribe({
-      next: (tasks) => this.tasks = tasks,
-      error: (err) => console.error('Error loading tasks:', err)
+      next: (tasks) => {
+        this.tasks = tasks;
+      },
+      error: (error) => {
+        console.error('Error loading tasks:', error);
+        this.tasks = [];
+      }
     });
   }
 
-  handleTaskAdded() {
+  handleTaskAdded(): void {
     this.loadTasks();
+  }
+
+  loadUser() {
+    const userStr = localStorage.getItem('user');
+    if (userStr) {
+      this.user = JSON.parse(userStr);
+    }
   }
 }

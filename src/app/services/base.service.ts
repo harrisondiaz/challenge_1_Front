@@ -8,7 +8,7 @@ export class BaseService {
   protected apiUrl = environment.apiUrl;
 
   constructor() { 
-    console.log(`BaseService: La API URL es ${this.apiUrl}`);
+    
   }
 
   getApiUrl(): string {

@@ -38,14 +38,14 @@ export class AuthService {
 
   private loadInitialUser(): void {
     const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
+    const userStr = localStorage.getItem('user');
 
-    if (token && user) {
+    if (token && userStr) {
       try {
-        const parsedUser: User = JSON.parse(user);
-        this.currentUserSubject.next(parsedUser);
-      } catch (e) {
-        console.error('Error parsing user data:', e);
+        const user = JSON.parse(userStr);
+        this.currentUserSubject.next(user);
+      } catch (error) {
+        console.error('Error parsing stored user:', error);
         this.clearAuthData();
       }
     }
