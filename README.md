@@ -20,7 +20,10 @@ Antes de ejecutar esta aplicación, asegúrate de tener:
 
 ## Instalación
 
-1. Clona el repositorio:
+1. Clona el repositorio y entra en el directorio del proyecto:
+```bash
+git clone https://github.com/harrisondiaz/challenge_1_Front.git Challenge_1_front
+cd Challenge_1_front
 ```
 
 ## Servidor de Desarrollo
