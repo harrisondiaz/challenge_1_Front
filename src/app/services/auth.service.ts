@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { BaseService } from './base.service';
 
 // Mejor: Definir interfaz de Usuario
 interface User {
@@ -26,11 +27,12 @@ interface LoginResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/auth';
+  private apiUrl: string;
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private baseService: BaseService) {
+    this.apiUrl = `${this.baseService.getApiUrl()}/auth`;
     this.loadInitialUser();
   }
 
@@ -55,11 +57,8 @@ export class AuthService {
       .pipe(
         tap((response) => {
           this.storeAuthData(response);
-
           this.currentUserSubject.next(response.user);
-
           this.router.navigate(['/tasks']);
-
           Swal.fire({
             title: '¡Bienvenido!',
             text: 'Inicio de sesión exitoso',

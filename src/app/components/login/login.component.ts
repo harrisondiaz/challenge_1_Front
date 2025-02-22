@@ -61,7 +61,10 @@ export class LoginComponent {
           this.router.navigate(['/tasks']);
         }, 1500);
       },
-      error: (err) => this.handleLoginError(err),
+      error: (err) => {
+        this.loading = false;
+        this.handleLoginError(err);
+      },
       complete: () => this.loading = false
     });
   }
