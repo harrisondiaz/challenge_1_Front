@@ -1,39 +1,52 @@
-<div class="bg-white p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg">
-    <h2 class="text-2xl font-bold mb-6 text-gray-800 flex items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-      </svg>
-      Lista de Tareas
-    </h2>
+<div class="bg-white p-4 sm:p-6 md:p-8 rounded-xl shadow-lg">
+    
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
+        <div class="flex items-center gap-3">
+            <div class="flex-shrink-0 w-10 h-10 bg-[#0043A9]/10 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-[#0043A9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-bold text-[#0043A9]">Lista de Tareas</h2>
+        </div>
+        <span class="inline-flex items-center px-3 py-1.5 bg-[#0043A9]/5 text-[#444444] text-sm font-medium rounded-full">
+            {{ tasks.length }} {{ tasks.length === 1 ? 'tarea' : 'tareas' }}
+        </span>
+    </div>
+    
     
     @if(tasks.length === 0){
-    <div class="text-center py-8">
-            <p class="text-gray-500 mb-4">🎉 ¡No hay tareas pendientes!</p>
-        
-      <img 
-        src="assets/images/mood-empty.svg" 
-        alt="Lista vacía" 
-        class="w-16 mx-auto"
-        onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI5MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRTVFN0VCIiBzdHJva2Utd2lkdGg9IjQiLz48Y2lyY2xlIGN4PSI3MCIgY3k9IjgwIiByPSI4IiBmaWxsPSIjOUNBM0FGIi8+PGNpcmNsZSBjeD0iMTMwIiBjeT0iODAiIHI9IjgiIGZpbGw9IiM5Q0EzQUYiLz48cGF0aCBkPSJNNjAgMTIwIFExMDAgMTQwIDE0MCAxMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzlDQTNBRiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4='"
-      >
-    </div>
-}
-  
-    @for ( task of tasks; track $index) {
-    <div
-        class="border-b border-gray-100 py-4 flex justify-between items-center group hover:bg-gray-50 transition-all duration-200 rounded-lg px-3">
-        <div class="flex-1 min-w-0">
-          <h3 class="font-semibold text-lg text-gray-800 truncate">{{ task.title }}</h3>
-          <p class="text-gray-600 text-sm mt-1 whitespace-pre-wrap">{{ task.description }}</p>
+        <div class="text-center py-8 sm:py-12">
+            <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                <svg class="w-8 h-8 sm:w-10 sm:h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
+                          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+            </div>
+            <p class="text-[#444444] text-lg mb-2">No hay tareas pendientes</p>
+            <span class="text-[#CC4700] text-sm font-medium">¡Comienza agregando una nueva tarea!</span>
         </div>
-        <button (click)="confirmDelete(task.id)"
-              class="text-red-400 hover:text-red-600 p-2 rounded-full hover:bg-red-50 transition-all">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-        </svg>
-      </button>
-      
-      
-    </div>
-}
-  </div>
+    }
+  
+    
+    @for(task of tasks; track $index) {
+        <div class="group mb-3 last:mb-0">
+            <div class="p-4 sm:p-5 rounded-lg border border-gray-100 hover:border-[#0043A9]/20 hover:bg-gray-50 transition-all duration-200">
+                <div class="flex items-start justify-between gap-4">
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-medium text-[#444444] text-base sm:text-lg mb-1 line-clamp-1">{{ task.title }}</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed line-clamp-2">{{ task.description }}</p>
+                    </div>
+                    <button (click)="confirmDelete(task.id)"
+                            class="flex-shrink-0 text-gray-400 hover:text-[#CC4700] p-2 rounded-lg hover:bg-red-50 transition-all sm:opacity-0 sm:group-hover:opacity-100 focus:opacity-100">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
