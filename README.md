@@ -16,7 +16,7 @@ Antes de ejecutar esta aplicación, asegúrate de tener:
 
 - Node.js (v14 o superior)
 - npm (v6 o superior)
-- Angular CLI (v16 o superior)
+- Angular CLI (v19 o superior)
 
 ## Instalación
 
@@ -68,15 +68,13 @@ Para ejecutar pruebas unitarias con el corredor de pruebas [Karma](https://karma
 ng test
 ```
 
-## Ejecutar Pruebas End-to-End
+## Despliegue
 
-Para pruebas end-to-end (e2e), ejecuta:
+Para desplegar la aplicación en producción ejecuta:
 
 ```bash
-ng e2e
+ng build --configuration production
 ```
-
-Angular CLI no viene con un framework de pruebas end-to-end por defecto. Puedes elegir uno que se adapte a tus necesidades.
 
 ## Recursos Adicionales
 
