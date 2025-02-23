@@ -22,8 +22,8 @@ describe('TasksComponent', () => {
   };
 
   const mockTasks = [
-    { id: 5, title: 'Task 1', description: 'Description 1' },
-    { id: 6, title: 'Task 2', description: 'Description 2' }
+    { id: 5, title: 'Task 1', description: 'Description 1', completed: false },
+    { id: 6, title: 'Task 2', description: 'Description 2', completed: false }
   ];
 
   beforeEach(async () => {

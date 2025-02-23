@@ -13,6 +13,7 @@ describe('TaskService', () => {
     id: 1,
     title: 'Test Task',
     description: 'Test Description',
+    completed: false,
   };
 
   beforeEach(() => {
@@ -56,6 +57,7 @@ describe('TaskService', () => {
     const newTask: Omit<Task, 'id'> = {
       title: 'New Task',
       description: 'New Description',
+      completed: false,
     };
 
     service.addTask(newTask).subscribe(task => {

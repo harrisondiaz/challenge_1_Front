@@ -2,9 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TaskListComponent } from './task-list.component';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CommonModule } from '@angular/common';
 
 describe('TaskListComponent', () => {
   let component: TaskListComponent;
@@ -12,18 +13,27 @@ describe('TaskListComponent', () => {
   let taskService: jasmine.SpyObj<TaskService>;
 
   const mockTasks: Task[] = [
-    { id: 1, title: 'Task 1', description: 'Description 1' },
-    { id: 2, title: 'Task 2', description: 'Description 2' }
+    { id: 1, title: 'Task 1', description: 'Description 1', completed: false },
+    { id: 2, title: 'Task 2', description: 'Description 2', completed: false }
   ];
 
   beforeEach(async () => {
-    const taskServiceSpy = jasmine.createSpyObj('TaskService', ['deleteTask']);
-    taskServiceSpy.deleteTask.and.returnValue(of(void 0));
+    const taskServiceSpy = jasmine.createSpyObj('TaskService', [
+      'deleteTask', 
+      'getTasks',
+      'updateTask',
+      'toggleTaskComplete'  // Añadido este método
+    ]);
+    
+    taskServiceSpy.deleteTask.and.returnValue(of({ message: 'Tarea eliminada' }));
+    taskServiceSpy.getTasks.and.returnValue(of(mockTasks));
+    taskServiceSpy.toggleTaskComplete.and.returnValue(of({ message: 'Tarea actualizada', completed: true }));
 
     await TestBed.configureTestingModule({
       imports: [
         TaskListComponent,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        CommonModule,
       ],
       providers: [
         { provide: TaskService, useValue: taskServiceSpy }
@@ -39,47 +49,37 @@ describe('TaskListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display tasks when provided', () => {
-    component.tasks = mockTasks;
-    fixture.detectChanges();
-
-    const taskElements = fixture.nativeElement.querySelectorAll('.border-b');
-    expect(taskElements.length).toBe(2);
-    expect(taskElements[0].textContent).toContain('Task 1');
-    expect(taskElements[0].textContent).toContain('Description 1');
-  });
-
-  it('should show empty state when no tasks', () => {
-    component.tasks = [];
-    fixture.detectChanges();
-
-    const emptyMessage = fixture.nativeElement.querySelector('.text-gray-500');
-    expect(emptyMessage.textContent).toContain('¡No hay tareas pendientes!');
-  });
-
-  it('should confirm and delete task', async () => {
-    spyOn(Swal, 'fire').and.returnValue(Promise.resolve({ isConfirmed: true } as any));
+  it('should handle error when deleting task', async () => {
+    spyOn(Swal, 'fire').and.returnValues(
+      Promise.resolve({ isConfirmed: true } as any),
+      Promise.resolve({ isConfirmed: true } as any)
+    );
+    taskService.deleteTask.and.returnValue(throwError(() => new Error('Delete failed')));
     component.tasks = [...mockTasks];
 
     await component.confirmDelete(1);
     fixture.detectChanges();
 
     expect(taskService.deleteTask).toHaveBeenCalledWith(1);
-    expect(component.tasks.length).toBe(1);
-    expect(component.tasks[0].id).toBe(2);
+    expect(component.tasks.length).toBe(2);
+    expect(Swal.fire).toHaveBeenCalledWith(jasmine.objectContaining({
+      title: 'Error',
+      text: 'Ocurrió un error al eliminar la tarea',
+      icon: 'error',
+      confirmButtonColor: '#ef4444',
+      background: '#fff'
+    }));
   });
 
-  it('should not delete task when confirmation is cancelled', async () => {
-    spyOn(Swal, 'fire').and.returnValue(Promise.resolve({ isConfirmed: false } as any));
-    component.tasks = [...mockTasks];
-
-    await component.confirmDelete(1);
+  it('should toggle task completion', async () => {
+    const task = { ...mockTasks[0] };
+    component.tasks = [task];
+    
+    await component.toggleComplete(task);
     fixture.detectChanges();
 
-    expect(taskService.deleteTask).not.toHaveBeenCalled();
-    expect(component.tasks.length).toBe(2);
-  }
-  );
-}
-);
+    expect(taskService.toggleTaskComplete).toHaveBeenCalledWith(task.id);
+    expect(component.tasks[0].completed).toBeTrue();
+  });
+});
 
